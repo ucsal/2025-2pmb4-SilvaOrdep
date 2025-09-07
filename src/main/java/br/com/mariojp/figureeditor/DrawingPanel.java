@@ -18,10 +18,9 @@ class DrawingPanel extends JPanel {
     private Point startDrag;
     private final ShapeFactory shapeFactory;
 
-    DrawingPanel(ShapeFactory shapeFactory) {
-        this.shapeFactory = shapeFactory;
+    DrawingPanel(ShapeFactory shapeFactoryClient) {
+        this.shapeFactory = shapeFactoryClient;
         this.shapes = new ArrayList<>();
-        
         setBackground(Color.WHITE);
         setOpaque(true);
         setDoubleBuffered(true);
@@ -29,7 +28,7 @@ class DrawingPanel extends JPanel {
         var mouse = new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1 && startDrag == null) {
-                    Shape s = shapeFactory.getShape(e.getPoint().x,e.getPoint().y,DEFAULT_SIZE, DEFAULT_SIZE);
+                    Shape s =  shapeFactory.getShape(e.getPoint().x,e.getPoint().y,DEFAULT_SIZE, DEFAULT_SIZE);
                     shapes.add(s);
                     repaint();
                 }
