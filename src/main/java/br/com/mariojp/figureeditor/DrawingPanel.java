@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,10 @@ class DrawingPanel extends JPanel {
     private static final int DEFAULT_SIZE = 60;
     private final List<Shape> shapes;
     private Point startDrag;
+    private final ShapeFactory shapeFactory;
 
     DrawingPanel(ShapeFactory shapeFactory) {
+        this.shapeFactory = shapeFactory;
         this.shapes = new ArrayList<>();
         
         setBackground(Color.WHITE);
