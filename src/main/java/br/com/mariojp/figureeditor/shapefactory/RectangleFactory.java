@@ -7,7 +7,7 @@ public class RectangleFactory implements ShapeFactory {
 
     @Override
     public Shape getShape(double x, double y, double width, double height) {
-        return new Rectangle2D.Double(x,y,width,height);
+        return new Rectangle2D.Double(x,y,Math.max(width, 10),Math.max(height, 10));
     }
 
 }

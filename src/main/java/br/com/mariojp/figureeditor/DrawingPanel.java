@@ -1,12 +1,13 @@
 
 package br.com.mariojp.figureeditor;
 
+import br.com.mariojp.figureeditor.shapefactory.ShapeFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,11 @@ class DrawingPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final int DEFAULT_SIZE = 60;
-    private final List<Shape> shapes = new ArrayList<>();
-    private Point startDrag = null;
+    private final List<Shape> shapes;
+    private Point startDrag;
 
-    DrawingPanel() {
+    DrawingPanel(ShapeFactory shapeFactory) {
+        this.shapes = new ArrayList<>();
         
         setBackground(Color.WHITE);
         setOpaque(true);
@@ -26,9 +28,7 @@ class DrawingPanel extends JPanel {
         var mouse = new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1 && startDrag == null) {
-                    int size = Math.max(Math.min(DEFAULT_SIZE, DEFAULT_SIZE), 10);
-                    Shape s =  new Ellipse2D.Double(e.getPoint().x, e.getPoint().y, size, size);
-                    //return new Rectangle2D.Double(e.getPoint().x, e.getPoint().y, Math.max(DEFAULT_SIZE, 10), Math.max(DEFAULT_SIZE, 10));
+                    Shape s = shapeFactory.getShape(e.getPoint().x,e.getPoint().y,DEFAULT_SIZE, DEFAULT_SIZE);
                     shapes.add(s);
                     repaint();
                 }
